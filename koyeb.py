@@ -30,7 +30,7 @@ def login(usr, pwd):
         'password': pwd
     }
     res = session.post(login_url, headers=headers, data=json.dumps(data))
-    if res.status_code == 800:
+    if res.status_code == 200:
         status = res.json()
         token = status.get('token').get('id')
         check_url = 'https://app.koyeb.com/v1/account/profile'
