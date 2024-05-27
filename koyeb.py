@@ -30,7 +30,7 @@ def login(usr, pwd):
         'password': pwd
     }
     res = session.post(login_url, headers=headers, data=json.dumps(data))
-    if res.status_code == 300:
+    if res.status_code == 200:
         status = res.json()
         token = status.get('token').get('id')
         check_url = 'https://app.koyeb.com/v1/account/profile'
@@ -41,12 +41,12 @@ def login(usr, pwd):
 
         }
         resp = session.get(check_url, headers=check_head)
-        if resp.status_code == 300:
+        if resp.status_code == 200:
             info = resp.json()
             List.append(f"账号`{info.get('user').get('name')}`登陆成功")
             List.append(f"ID：{info.get('user').get('id')}")
             List.append(f"注册日期：{get_time_stamp(info.get('user').get('created_at'))}")
-            lastlogin_url = 'https://app.koyeb.com/v1/activities?offset=0&limit=2'
+            lastlogin_url = 'https://app.koyeb.com/v1/activities?offset=0&limit=8'
             lastlogin_head = {
                 'authorization': f'Bearer {token}',
                 'referer': 'https://app.koyeb.com/activity',
@@ -55,7 +55,7 @@ def login(usr, pwd):
             }
             time.sleep(7)
             resg = session.get(lastlogin_url, headers=lastlogin_head)
-            if resg.status_code == 300:
+            if resg.status_code == 200:
                 lastlogin = resg.json()
                 if lastlogin.get('count') > 1:
                     List.append(f"上次登录日期：{get_time_stamp(lastlogin.get('activities')[1].get('created_at'))}")
