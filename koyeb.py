@@ -57,7 +57,7 @@ def login(usr, pwd):
             resg = session.get(lastlogin_url, headers=lastlogin_head)
             if resg.status_code == 200:
                 lastlogin = resg.json()
-                if lastlogin.get('count',0) > 1:
+                if lastlogin.get('count') > 1:
                     List.append(f"上次登录日期：{get_time_stamp(lastlogin.get('activities')[1].get('created_at'))}")
                 List.append(f"当前登录日期：{get_time_stamp(lastlogin.get('activities')[0].get('created_at'))}")
                 List.append(f"总登录次数：{lastlogin.get('count')}次")
@@ -78,7 +78,27 @@ if __name__ == '__main__':
             i += 1
             name, pwd = x.split('-')
             List.append(f'===> [账号{str(i)}]Start <===')
+            def login(name, pwd):
+                # 假设 lastlogin 是在某处定义的
+                lastlogin = some_function_to_get_lastlogin()
+    
+                # 确保 lastlogin 是一个字典
+                if not isinstance(lastlogin, dict):
+                raise ValueError("lastlogin should be a dictionary")
+    
+                # 使用默认值来避免 TypeError
+                count = lastlogin.get('count', 0)
+    
+                if count > 1:
+                   # 你的逻辑代码
+                   pass
+                else:
+                   # 其他逻辑代码
+                   pass
+
+            # 假设 name 和 pwd 是在某处定义的
             login(name, pwd)
+
             List.append(f'===> [账号{str(i)}]End <===\n')
             time.sleep(1)
         tt = '\n'.join(List)
