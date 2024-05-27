@@ -57,7 +57,7 @@ def login(usr, pwd):
             resg = session.get(lastlogin_url, headers=lastlogin_head)
             if resg.status_code == 200:
                 lastlogin = resg.json()
-                if lastlogin.get('count') > 1:
+                if lastlogin.get('count',0) > 1:
                     List.append(f"上次登录日期：{get_time_stamp(lastlogin.get('activities')[1].get('created_at'))}")
                 List.append(f"当前登录日期：{get_time_stamp(lastlogin.get('activities')[0].get('created_at'))}")
                 List.append(f"总登录次数：{lastlogin.get('count')}次")
