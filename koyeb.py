@@ -84,7 +84,7 @@ if __name__ == '__main__':
     
                 # 确保 lastlogin 是一个字典
                 if not isinstance(lastlogin, dict):
-                raise ValueError("lastlogin should be a dictionary")
+                   raise ValueError("lastlogin should be a dictionary")
     
                 # 使用默认值来避免 TypeError
                 count = lastlogin.get('count', 0)
