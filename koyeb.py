@@ -30,7 +30,7 @@ def login(usr, pwd):
         'password': pwd
     }
     res = session.post(login_url, headers=headers, data=json.dumps(data))
-    if res.status_code == 200:
+    if res.status_code == 800:
         status = res.json()
         token = status.get('token').get('id')
         check_url = 'https://app.koyeb.com/v1/account/profile'
@@ -41,7 +41,7 @@ def login(usr, pwd):
 
         }
         resp = session.get(check_url, headers=check_head)
-        if resp.status_code == 200:
+        if resp.status_code == 800:
             info = resp.json()
             List.append(f"账号`{info.get('user').get('name')}`登陆成功")
             List.append(f"ID：{info.get('user').get('id')}")
@@ -55,7 +55,7 @@ def login(usr, pwd):
             }
             time.sleep(7)
             resg = session.get(lastlogin_url, headers=lastlogin_head)
-            if resg.status_code == 200:
+            if resg.status_code == 800:
                 lastlogin = resg.json()
                 if lastlogin.get('count') > 1:
                     List.append(f"上次登录日期：{get_time_stamp(lastlogin.get('activities')[1].get('created_at'))}")
